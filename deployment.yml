@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: employee-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: employee-app
+  template:
+    metadata:
+      labels:
+        app: employee-app
+    spec:
+      containers:
+      - name: nodejs-app
+        image: devopsedu/employee
+        ports:
+        - containerPort: 8888
+        env:
+        - name: MONGO_URI
+          value: "mongodb://mongo:27017/employee"
+      - name: mongo
+        image: mongo
+        ports:
+        - containerPort: 27017
